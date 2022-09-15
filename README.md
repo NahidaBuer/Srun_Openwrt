@@ -3,7 +3,7 @@ Openwrt可用的深澜校园网客户端，可作为服务自启动，支持自�
 
 # 写在前面
 
-本项目离不开 [Raincorn](https://github.com/rainvalley)、[chillsoul](https://github.com/chillsoul) 的 [rainvalley/Srun_Linux: A srun bash script for linux/unix (github.com)](https://github.com/rainvalley/Srun_Linux) 项目。本项目的核心登录功能仍然使用以上脚本，如果希望采用传统方式登录，或者在其他 Linux 上运行，请使用上面的版本。
+本项目离不开 [Raincorn](https://github.com/rainvalley)、[chillsoul](https://github.com/chillsoul) 的 [rainvalley/Srun_Linux](https://github.com/rainvalley/Srun_Linux) 项目。本项目的核心登录功能仍然使用以上脚本，如果希望采用传统命令后方式登录，或者在其他 Linux 发行版运行，请使用上面的版本。
 
 掉线检测的功能和实现受 [Revincx](https://github.com/Revincx/) 启发。感谢他长期运行的经验，该掉线检测方法在 crontab 每分钟执行一次的情况下，在相当长的时间跨度下（数月）未出现问题。
 
@@ -97,11 +97,11 @@ ps | grep srun
 
 * 检测方式：使用 wget 模拟 Edge on Windows 的 UA，每 5 秒访问 http://connect.rom.miui.com/generate_204，如果校园网在线，则应该返回 HTTP 204 状态码（即返回结果为空），否则被重定向至登录页面。根据返回结果判断即可。
 * 该方式除常驻一个 bash 脚本以外，性能开销是可以忽略的。但是不建议修改为更高的检测频率。
-* 如果查看 log 发现频繁掉线，可能是因为触发了校园网的多设备检测/共享限制，被踢下线。
+* 如果查看 log 发现频繁掉线，可能是因为触发了校园网的多设备检测/共享限制。
 * 该脚本可以作为防被踢下线的一种解决方案，但是请不要在重要场景（比如考试、重要游戏、抢购等）过度依赖，并作为唯一应对措施。
 * 已在 x86 VM Openwrt 测试通过，理论上适用于几乎所有 Openwrt 系统（只要该系统使用 UCI 管理配置文件，并使用 Procd 守护、管理系统服务）。
 * 硬路由基于 Openwrt 的官方系统未经过测试，不保证正常使用，如有需要请自行测试或刷成 Openwrt。
 * 由于 Openwrt 的备份功能仅备份 `/etc/` 目录，所以在系统重置、升级后会丢失登录脚本。请重新执行安装脚本，安装时会正确覆盖先前的配置文件。
 * 如不想在掉线重连时写入 log，请注释掉 `/usr/bin/srun.sh` 第 74-82 行中写 log 的三行。
-* 如果因调试用途，或不能确定脚本是否执行，请去掉安装脚本 139, 140 行（安装前，或者卸载后重新执行安装脚本）或 `/etc/init.d/srun` 22, 23 行前面的注释，并重启服务。此时脚本每 5 秒会在 Openwrt 系统日志里输出一行状态信息。
+* 如果因调试用途，需要查看脚本执行详细日志，请去掉安装脚本 139, 140 行（安装前修改，或者卸载后重新执行安装脚本）或 `/etc/init.d/srun` 22, 23 行前面的注释，并重启服务。此时脚本每 5 秒会在 Openwrt 系统日志里输出一行状态信息。
 

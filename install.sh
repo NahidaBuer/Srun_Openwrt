@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 NAME="srun"
 config=/etc/config/$NAME
 init=/etc/init.d/$NAME
@@ -94,15 +94,15 @@ if [ -z "$test_result" ]; then
     echo "User is online"
 else
     echo "User is offline, trying to reconnect..."
-    echo "$(date '+%Y-%m-%d %X') User is offline, trying to login..." >> ~/login.log
+    echo "$(date '+%Y-%m-%d %X') User is offline, trying to login..." >>/root/login.log
     # $1 用户名 $2 密码
     signin $1 $2
     if test $? -eq 1; then
         echo "User is connected"
-        echo "$(date '+%Y-%m-%d %X') User is logined successfully" >> ~/login.log
+        echo "$(date '+%Y-%m-%d %X') User is logined successfully" >>/root/login.log
     else
         echo "User connect failed"
-        echo "$(date '+%Y-%m-%d %X') User failed to login" >> ~/login.log
+        echo "$(date '+%Y-%m-%d %X') User failed to login" >>/root/login.log
     fi
 fi
 sleep 5

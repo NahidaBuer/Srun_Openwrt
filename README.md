@@ -32,7 +32,7 @@ wget https://raw.githubusercontent.com/CHxCOOH/Srun_Openwrt/main/install.sh
 2. 运行脚本，按提示输入账号密码。
 
 ```bash
-bash ./install.sh
+ash ./install.sh
 ```
 
 ```
